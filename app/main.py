@@ -1,8 +1,9 @@
 import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from settings import settings
+from app import settings
 from app import meta
+from app.router import router as routers
 
 
 app = FastAPI(
@@ -11,10 +12,10 @@ app = FastAPI(
     redoc_url=None,
     openapi_url="/public/v1/openapi.json",
     version=meta.__version__,
-    debug=settings.DEBUG,
+    debug=settings.APP_DEBUG,
 )
 
-# TODO: Include the routers here
+app.include_router(routers)
 
 app.add_middleware(
     CORSMiddleware,

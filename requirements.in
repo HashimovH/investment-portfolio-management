@@ -4,3 +4,5 @@ asyncpg
 sqlalchemy[mypy]
 uvicorn
 psycopg2-binary
+python-jose
+passlib

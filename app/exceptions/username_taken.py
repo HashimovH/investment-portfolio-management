@@ -1,0 +1,2 @@
+class UsernameAlreadyTaken(Exception):
+    pass
