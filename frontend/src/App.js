@@ -1,33 +1,18 @@
-import Header from './components/header';
-import Sidebar from './components/sidebar/sidebar';
-import Statistics from './components/statistics';
-import Transactions from './components/transactions/transactions';
+import Login from './components/auth/login';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Home from './components/home/home';
+
 
 function App() {
-  const stocks = [
-    { company: "Adcash OU", price: "5.00" },
-    { company: "Wise OU", price: "4.00" },
-    { company: "Transferwise OU", price: "3.00" },
-  ];
-  const clients = [
-    { name: "Hashim Hashimov", profit: "3200" },
-    { name: "Hashim Hashimov", profit: "3200" },
-    { name: "Hashim Hashimov", profit: "3200" },
-  ]
+  const isAuthenticated = false;
   return (
-    <div>
-      <Header first_name={"Hashim"} last_name={"Hashimov"} />
-      <div className='row'>
-        <div className='col-md-8'>
-          <Statistics />
-          <Transactions />
-        </div>
-        <div className='col-md-4'>
-          <Sidebar recentStocks={stocks} mostProfitableClients={clients} />
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route exact path="/" element={isAuthenticated ? <Home /> : <Navigate to="/login" />} />
 
-        </div>
-      </div>
-    </div>
+      </Routes>
+    </Router>
   );
 }
 
