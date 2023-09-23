@@ -1,0 +1,6 @@
+fastapi
+alembic
+asyncpg
+sqlalchemy[mypy]
+uvicorn
+psycopg2-binary
