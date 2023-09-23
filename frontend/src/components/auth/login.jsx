@@ -1,20 +1,31 @@
 import { useState } from "react";
+import axios from "axios";
+import config from "../../config";
+import { useNavigate } from 'react-router-dom';
 
-export default function Login() {
+const Login = ({ setIsAuthenticated }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
-    const handleLogin = (e) => {
+    const navigate = useNavigate();
+    const handleLogin = async (e) => {
         e.preventDefault();
 
-        // Here you would typically perform authentication, for simplicity we'll just consider a successful login
-        // Replace this with actual authentication logic
+        try {
+            const response = await axios.post(`${config.API_URL}/api/login`, {
+                username,
+                password
+            });
 
-        // For demonstration, let's consider a successful login if both username and password are 'admin'
-        if (username === 'admin' && password === 'admin') {
-            //   setIsAuthenticated(true);
-            console.log("Login successful")
-        } else {
+            // Assuming the backend sends a token upon successful login
+            const token = response.data.access_token;
+
+            // Store the token in local storage or a cookie for authentication
+            localStorage.setItem('token', token);
+
+            // Update the isAuthenticated state to true
+            setIsAuthenticated(true);
+            navigate('/');
+        } catch (error) {
             alert('Invalid credentials. Please try again.');
         }
     };
@@ -59,3 +70,4 @@ export default function Login() {
         </div>
     );
 }
+export default Login;
