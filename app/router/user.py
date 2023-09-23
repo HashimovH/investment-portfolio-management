@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from app.dependency.user_service import get_user_service
 from app.exceptions.username_taken import UsernameAlreadyTaken
 
-from app.schemas.user import UserCreate, UserOut
+from app.schemas.user import UserCreate, UserOut, UserLogin
 from app.services.user_service import UserService
 from app.utils.auth import verify_password, create_access_token
 
@@ -26,10 +26,10 @@ async def register(
         
     return user
 
-@router.post("/login/")
-async def login(username: str, password: str, service: UserService = get_user_service):
-    user = await service.get_user_by_username(username)
-    if not user or not verify_password(password, user.password):
+@router.post("/login", status_code=200, description="Login")
+async def login(body: UserLogin, service: UserService = get_user_service):
+    user = await service.get_user_by_username(body.username)
+    if not user or not verify_password(body.password, user.password):
         raise HTTPException(status_code=400, detail="Invalid credentials")
     
     access_token = create_access_token({"sub": user.username})
