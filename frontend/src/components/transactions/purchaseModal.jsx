@@ -1,12 +1,6 @@
 
 
-export default function PurchaseModal({ handleCloseModal }) {
-    const stockOptions = [
-        'Stock 1',
-        'Stock 2',
-        'Stock 3',
-        // Add more stock options as needed
-    ];
+export default function PurchaseModal({ handleCloseModal, stockOptions }) {
     return (
         <div className="modal" tabIndex="-1" role="dialog" style={{ display: 'block', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
             <div className="modal-dialog" role="document">
@@ -25,8 +19,8 @@ export default function PurchaseModal({ handleCloseModal }) {
                                         Choose Stock
                                     </option>
                                     {stockOptions.map((stock, index) => (
-                                        <option key={index} value={stock}>
-                                            {stock}
+                                        <option key={index} value={stock.name}>
+                                            {stock.name}
                                         </option>
                                     ))}
                                 </select>

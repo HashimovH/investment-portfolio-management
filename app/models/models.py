@@ -12,6 +12,7 @@ class Client(Base):
     surname = Column(String)
     email = Column(String, unique=True, index=True)
     active = Column(Integer, default=1)
+    balance = Column(Float, default=0.0)
 
 
 class Stock(Base):

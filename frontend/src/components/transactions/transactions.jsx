@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PurchaseModal from "./purchaseModal";
 
-export default function Transactions({ transactions = [] }) {
+export default function Transactions({ transactions = [], stockOptions = [] }) {
     const [showModal, setShowModal] = useState(false);
 
     const handleCreatePurchase = () => {
@@ -44,7 +44,7 @@ export default function Transactions({ transactions = [] }) {
                 </tbody>
             </table>
             {showModal && (
-                <PurchaseModal handleCloseModal={handleCloseModal} />
+                <PurchaseModal handleCloseModal={handleCloseModal} stockOptions={stockOptions} />
             )}
         </div>
 

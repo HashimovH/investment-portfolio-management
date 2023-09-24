@@ -1,26 +1,62 @@
+import axios from "axios";
 import Header from "../header";
 import Sidebar from "../sidebar/sidebar";
 import Statistics from "../statistics";
 import Transactions from "../transactions/transactions";
+import config from "../../config";
+import { useEffect, useState } from "react";
+
 
 export default function Home() {
-    const stocks = [
-        { company: "Adcash OU", price: "5.00" },
-        { company: "Wise OU", price: "4.00" },
-        { company: "Transferwise OU", price: "3.00" },
-    ];
     const clients = [
         { name: "Hashim Hashimov", profit: "3200" },
         { name: "Hashim Hashimov", profit: "3200" },
         { name: "Hashim Hashimov", profit: "3200" },
     ]
+    const [currentUser, setCurrentUser] = useState({});
+    const [stocks, setStocks] = useState([]);
+
+    const getCurrentUser = async () => {
+        try {
+            const token = localStorage.getItem('token');
+
+            const response = await axios.get(`${config.API_URL}/api/me`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            console.log('Current user:', response.data);
+            setCurrentUser(response.data);
+        } catch (error) {
+            console.error('Error fetching current user:', error.response ? error.response.data : error.message);
+        }
+    };
+    const getStocks = async () => {
+        try {
+            const token = localStorage.getItem('token');
+
+            const response = await axios.get(`${config.API_URL}/api/stocks`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            console.log('Stocks:', response.data);
+            setStocks(response.data);
+        } catch (error) {
+            console.error('Error fetching stocks:', error.response ? error.response.data : error.message);
+        }
+    }
+    useEffect(() => {
+        getCurrentUser();
+        getStocks();
+    }, []);
     return (
         <div>
-            <Header first_name={"Hashim"} last_name={"Hashimov"} />
+            <Header first_name={currentUser.name} last_name={currentUser.surname} />
             <div className='row'>
                 <div className='col-md-8'>
-                    <Statistics />
-                    <Transactions />
+                    <Statistics currentBalance={currentUser.balance} />
+                    <Transactions stockOptions={stocks} />
                 </div>
                 <div className='col-md-4'>
                     <Sidebar recentStocks={stocks} mostProfitableClients={clients} />

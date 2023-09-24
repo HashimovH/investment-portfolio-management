@@ -1,3 +1,4 @@
+from typing import Optional
 from pydantic import BaseModel
 
 class UserCreate(BaseModel):
@@ -8,6 +9,7 @@ class UserCreate(BaseModel):
 
 class UserOut(UserCreate):
     id: int
+    balance: Optional[float] = 0
     class Config:
         orm_mode = True
     

@@ -7,7 +7,7 @@ export default function Sidebar({ recentStocks, mostProfitableClients }) {
             <div className="list-group list-group-flush">
                 {recentStocks.map((stock, index) => (
                     <div key={index} className="list-group-item d-flex justify-content-between bg-gray border-radius mb-2 text-gray">
-                        <span className="item-text">{stock.company}</span>
+                        <span className="item-text">{stock.name}</span>
                         <span className="item-text">€ {stock.price}</span>
                     </div>
                 ))}
