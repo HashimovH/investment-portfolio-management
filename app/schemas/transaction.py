@@ -1,3 +1,4 @@
+from typing import Optional
 from pydantic import BaseModel
 import datetime
 
@@ -9,5 +10,7 @@ class TransactionOut(BaseModel):
     id: int
     stock: str
     volume: int
-    purchase_price: float
+    price: Optional[float]
+    purchase_price: Optional[float] = 0
     purchase_date: str
+    current_price: Optional[float] = None

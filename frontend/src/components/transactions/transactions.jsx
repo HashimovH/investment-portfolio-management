@@ -88,8 +88,8 @@ export default function Transactions({ stockOptions = [] }) {
                         <tr key={transaction.id}>
                             <td className="text-gray">{transaction.stock}</td>
                             <td className="text-bold">{transaction.volume}</td>
-                            <td className="text-bold">€ {transaction.purchase_price}</td>
-                            <td className="text-bold">{transaction.currentPrice}</td>
+                            <td className="text-bold">€ {transaction.price}</td>
+                            <td className="text-bold">€ {transaction.current_price}</td>
                             <td>{transaction.gainOrLoss}</td>
                             <td className="text-gray">{transaction.purchase_date}</td>
                         </tr>

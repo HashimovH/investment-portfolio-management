@@ -23,13 +23,13 @@ class InvestmentRepository(Repository):
     
     async def get_user_transactions(self, client_id) -> list[Transactions]:
         stmt = (
-           select(Transactions, Stock.name).where(Transactions.client_id == client_id).join(Stock, Transactions.stock_id == Stock.id)
+           select(Transactions, Stock.name, Stock.price).where(Transactions.client_id == client_id).join(Stock, Transactions.stock_id == Stock.id)
         )
         result = await self._session.execute(stmt)
         return result.all()
 
-    async def create_new_transaction(self, client_id, stock_id, volume, price) -> Transactions:
-        new_transaction = Transactions(client_id=client_id, stock_id=stock_id, volume=volume, price=price)
+    async def create_new_transaction(self, client_id, stock_id, volume, price, purchase_price) -> Transactions:
+        new_transaction = Transactions(client_id=client_id, stock_id=stock_id, volume=volume, price=price, purchase_price=purchase_price)
         self._session.add(new_transaction)
         await self._session.commit()
         # await self._session.refresh(new_transaction)

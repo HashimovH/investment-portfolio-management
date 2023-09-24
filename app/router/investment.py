@@ -30,7 +30,8 @@ async def get_current_user_route(
     result = []
     for transaction in transactions:
         formatted_datetime = transaction[0].created_at.strftime('%Y-%m-%d %H:%M')
-        result.append(TransactionOut(id=transaction[0].id, stock=transaction[1], volume=transaction[0].volume, purchase_price=round(transaction[0].price, 3), purchase_date=formatted_datetime))
+        print(transaction)
+        result.append(TransactionOut(id=transaction[0].id, stock=transaction[1], current_price=transaction[2],volume=transaction[0].volume, price=round(transaction[0].price, 3),purchase_price=transaction[0].purchase_price, purchase_date=formatted_datetime))
     return result
 
 @router.post("/transactions", response_model=bool)

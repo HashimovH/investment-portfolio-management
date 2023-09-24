@@ -24,12 +24,10 @@ class InvestmentService:
         if client_balance < transaction_price:
             raise InsufficientBalance(status_code=400)
         
-        transaction = await self._repository.create_new_transaction(client_id, stock_id, volume, transaction_price)
+        transaction = await self._repository.create_new_transaction(client_id, stock_id, volume, transaction_price, stock.price)
         
         client_balance = client_balance
-        print(client_balance, client_id, "---------------------------------------------=====================")
         new_balance = client_balance - transaction_price
-        print(new_balance, client_id, "---------------------------------------------=====================")
         await self._user_repository.decrease_balance(client_id, new_balance)
 
         return transaction
