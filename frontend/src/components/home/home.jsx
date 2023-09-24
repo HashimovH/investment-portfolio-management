@@ -15,7 +15,6 @@ export default function Home() {
     ]
     const [currentUser, setCurrentUser] = useState({});
     const [stocks, setStocks] = useState([]);
-
     const getCurrentUser = async () => {
         try {
             const token = localStorage.getItem('token');
@@ -46,6 +45,7 @@ export default function Home() {
             console.error('Error fetching stocks:', error.response ? error.response.data : error.message);
         }
     }
+
     useEffect(() => {
         getCurrentUser();
         getStocks();

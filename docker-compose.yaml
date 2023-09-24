@@ -13,7 +13,7 @@ services:
     build:
       context: .
       dockerfile: app/Dockerfile
-    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; uvicorn app.main:app --host 0.0.0.0'
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; uvicorn app.main:app --host 0.0.0.0 --reload'
     volumes:
       - .:/app
     ports:

@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from app.models.models import Client
-from sqlalchemy import select
+from sqlalchemy import select, update
 
 from app.schemas.user import UserCreate
 from app.repository.base import Repository
@@ -21,3 +21,10 @@ class UserRepository(Repository):
         )
         result = await self._session.execute(stmt)
         return result.scalars().first()
+
+    async def decrease_balance(self, client_id, new_balance):
+        stmt = (
+            update(Client).where(Client.id == client_id).values(balance=new_balance)
+        )
+        await self._session.execute(stmt)
+        await self._session.commit()

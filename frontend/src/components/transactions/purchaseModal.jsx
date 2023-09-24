@@ -1,6 +1,6 @@
 
 
-export default function PurchaseModal({ handleCloseModal, stockOptions }) {
+export default function PurchaseModal({ handleCloseModal, stockOptions, handleInputChange, handleSubmit }) {
     return (
         <div className="modal" tabIndex="-1" role="dialog" style={{ display: 'block', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
             <div className="modal-dialog" role="document">
@@ -13,26 +13,28 @@ export default function PurchaseModal({ handleCloseModal, stockOptions }) {
                     </div>
                     <div className="modal-body">
                         <div className="purchase-form">
-                            <div className="form-group mb-3">
-                                <select className="form-control input-bg-gray" id="stockSelect" placeholder="Stocks">
-                                    <option value="" disabled selected>
-                                        Choose Stock
-                                    </option>
-                                    {stockOptions.map((stock, index) => (
-                                        <option key={index} value={stock.name}>
-                                            {stock.name}
+                            <form onSubmit={handleSubmit}>
+                                <div className="form-group mb-3">
+                                    <select className="form-control input-bg-gray" id="stockSelect" name="stock_id" placeholder="Stocks" onChange={handleInputChange}>
+                                        <option value="" disabled selected>
+                                            Choose Stock
                                         </option>
-                                    ))}
-                                </select>
-                            </div>
-                            <div className="form-group mb-3">
-                                <input type="number" className="form-control input-bg-gray" id="volumeInput" placeholder="Volume" />
-                            </div>
-                            <div className="text-end">
-                                <button type="submit" className="btn btn-secondary btn-sm">
-                                    Purchase
-                                </button>
-                            </div>
+                                        {stockOptions.map((stock, index) => (
+                                            <option key={index} value={stock.id}>
+                                                {stock.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div className="form-group mb-3">
+                                    <input type="number" className="form-control input-bg-gray" id="volumeInput" name="volume" placeholder="Volume" onChange={handleInputChange} />
+                                </div>
+                                <div className="text-end">
+                                    <button type="submit" className="btn btn-secondary btn-sm">
+                                        Purchase
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
