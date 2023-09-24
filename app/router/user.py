@@ -1,8 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Header
+from app.dependency.investment_service import get_investment_service
 from app.dependency.user_service import get_user_service
 from app.exceptions.username_taken import UsernameAlreadyTaken
 
-from app.schemas.user import UserCreate, UserOut, UserLogin
+from app.schemas.user import ProfitableUsers, UserCreate, UserOut, UserLogin
+from app.services.investment_service import InvestmentService
 from app.services.user_service import UserService
 from app.utils.auth import verify_password, create_access_token, verify_token
 
@@ -53,3 +55,11 @@ async def get_current_user_route(service: UserService = get_user_service, curren
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return user
+
+@router.get("/users/profitable", response_model=list[ProfitableUsers])
+async def get_most_profitable_users(
+    service: InvestmentService = get_investment_service,
+    # current_user: str = Depends(get_current_user)
+):
+    users = await service.get_most_profitable_users()
+    return users

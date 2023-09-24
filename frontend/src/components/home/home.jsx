@@ -8,11 +8,6 @@ import { useEffect, useState } from "react";
 
 
 export default function Home() {
-    const clients = [
-        { name: "Hashim Hashimov", profit: "3200" },
-        { name: "Hashim Hashimov", profit: "3200" },
-        { name: "Hashim Hashimov", profit: "3200" },
-    ]
     const [currentUser, setCurrentUser] = useState({});
     const [stocks, setStocks] = useState([]);
     const [totalGain, setTotalGain] = useState(0);
@@ -61,8 +56,7 @@ export default function Home() {
                     <Transactions stockOptions={stocks} setTotalGain={setTotalGain} setTotalValue={setTotalValue} />
                 </div>
                 <div className='col-md-4'>
-                    <Sidebar recentStocks={stocks} mostProfitableClients={clients} />
-
+                    <Sidebar recentStocks={stocks} />
                 </div>
             </div>
         </div>

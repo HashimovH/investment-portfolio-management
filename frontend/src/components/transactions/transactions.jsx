@@ -102,7 +102,7 @@ export default function Transactions({ stockOptions = [], setTotalGain, setTotal
                             <td className="text-bold">€ {transaction.purchase_price}</td>
                             <td className="text-bold">€ {transaction.current_price}</td>
                             <td className={transaction.gain > 0 ? 'text-bold text-success' : transaction.gain < 0 ? 'text-bold text-danger' : 'text-bold'}>
-                                {transaction.gain > 0 ? '+' : '-'} € {Math.abs(transaction.gain)}
+                                {transaction.gain > 0 ? '+' : (transaction.gain < 0 ? '-' : '')} € {Math.abs(transaction.gain)}
                             </td>
                             <td className="text-gray">{transaction.purchase_date}</td>
                         </tr>

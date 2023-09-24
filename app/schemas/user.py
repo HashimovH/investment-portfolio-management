@@ -23,3 +23,8 @@ class UserOut(UserCreate):
 class UserLogin(BaseModel):
     username: str
     password: str
+
+class ProfitableUsers(BaseModel):
+    name: str
+    surname: str
+    profit: float

@@ -3,6 +3,7 @@ from app.exceptions.insufficient_balance import InsufficientBalance
 from app.exceptions.username_taken import UsernameAlreadyTaken
 from app.models.models import Client, Stock, Transactions
 from app.schemas.transaction import TransactionIn, TransactionOut, TransactionOutWithTotal
+from app.schemas.user import ProfitableUsers
 
 
 class InvestmentService:
@@ -52,3 +53,11 @@ class InvestmentService:
         await self._user_repository.decrease_balance(client_id, new_balance)
 
         return transaction
+
+    async def get_most_profitable_users(self) -> list[ProfitableUsers]:
+        profits = await self._repository.get_most_profitable_users()
+        print(profits)
+        result = []
+        for profit in profits:
+            result.append(ProfitableUsers(name=profit[0], surname=profit[1], profit=profit[2]))
+        return result

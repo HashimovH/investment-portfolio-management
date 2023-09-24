@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from app.models.models import Stock, Transactions
-from sqlalchemy import select
+from app.models.models import Client, Stock, Transactions
+from sqlalchemy import func, select
 
 from app.schemas.user import UserCreate
 from app.repository.base import Repository
@@ -33,3 +33,10 @@ class InvestmentRepository(Repository):
         self._session.add(new_transaction)
         await self._session.commit()
         return new_transaction
+
+    async def get_most_profitable_users(self) -> list[UserCreate]:
+        stmt = (
+            select(Client.name, Client.surname, func.sum(Transactions.price - Transactions.purchase_price)).join(Transactions, Client.id == Transactions.client_id).group_by(Client.name, Client.surname, Client.id).order_by(func.sum(Transactions.price - Transactions.purchase_price).desc()).limit(5)
+        )
+        result = await self._session.execute(stmt)
+        return result.all()
