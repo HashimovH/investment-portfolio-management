@@ -1,4 +1,4 @@
-export default function Statistics({ currentBalance = 0, totalProfitLoss = "-", totalPortfolioValue = "-" }) {
+export default function Statistics({ currentBalance = 0, totalProfitLoss = 0, totalPortfolioValue = 0 }) {
     return (
         <section className="general-information container">
             <h4 className="section-header">General Information</h4>
@@ -10,12 +10,11 @@ export default function Statistics({ currentBalance = 0, totalProfitLoss = "-", 
                     </div>
 
                 </div>
-                <div className="col-md-4">
+                <div className={`col-md-4`}>
                     <div className="bg-gray border-radius stat-block">
                         <p>Total Profit/Loss</p>
-                        <h2>€ {totalProfitLoss}</h2>
+                        <h2 className={`${totalProfitLoss > 0 ? 'text-success' : totalProfitLoss < 0 ? 'text-danger' : ''}`}>€ {totalProfitLoss}</h2>
                     </div>
-
                 </div>
                 <div className="col-md-4">
                     <div className="bg-gray border-radius stat-block">

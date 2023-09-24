@@ -3,9 +3,10 @@ import PurchaseModal from "./purchaseModal";
 import axios from "axios";
 import config from "../../config";
 
-export default function Transactions({ stockOptions = [] }) {
+export default function Transactions({ stockOptions = [], setTotalGain, setTotalValue }) {
     const [showModal, setShowModal] = useState(false);
     const [formData, setFormData] = useState({ stock_id: '', volume: '' });
+    const [errorMessage, setErrorMessage] = useState(null);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -24,13 +25,19 @@ export default function Transactions({ stockOptions = [] }) {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log('Transaction created:', response.data);
-            setShowModal(false);
-            getTransactions();
-            return response.data;
+            if (response.status === 201) {
+                console.log('Transaction created:', response.data);
+                setShowModal(false);
+                getTransactions();
+                return response.data;
+            } else {
+                console.error('Error creating transaction:', response.data);
+                setErrorMessage('Failed to create transaction. ', response.data);
+            }
+
         } catch (error) {
             console.error('Error creating transaction:', error.response ? error.response.data : error.message);
-            throw new Error('Failed to create transaction');
+            setErrorMessage(`Failed to create transaction. ${error.response ? error.response.data.detail : error.message.detail}`);
         }
     };
 
@@ -57,14 +64,18 @@ export default function Transactions({ stockOptions = [] }) {
                 },
             });
             console.log('Transactions:', response.data);
-            setTransactions(response.data);
+            setTransactions(response.data.transactions);
+            setTotalGain(response.data.total_gain);
+            setTotalValue(response.data.total_value);
         } catch (error) {
             console.error('Error fetching transactions:', error.response ? error.response.data : error.message);
         }
     }
+
     useEffect(() => {
         getTransactions();
     }, []);
+
     return (
         <div className="container mt-5">
             <div className="d-flex justify-content-between align-items-center mb-3">
@@ -88,16 +99,18 @@ export default function Transactions({ stockOptions = [] }) {
                         <tr key={transaction.id}>
                             <td className="text-gray">{transaction.stock}</td>
                             <td className="text-bold">{transaction.volume}</td>
-                            <td className="text-bold">€ {transaction.price}</td>
+                            <td className="text-bold">€ {transaction.purchase_price}</td>
                             <td className="text-bold">€ {transaction.current_price}</td>
-                            <td>{transaction.gainOrLoss}</td>
+                            <td className={transaction.gain > 0 ? 'text-bold text-success' : transaction.gain < 0 ? 'text-bold text-danger' : 'text-bold'}>
+                                {transaction.gain > 0 ? '+' : '-'} € {Math.abs(transaction.gain)}
+                            </td>
                             <td className="text-gray">{transaction.purchase_date}</td>
                         </tr>
                     ))}
                 </tbody>
             </table>
             {showModal && (
-                <PurchaseModal handleCloseModal={handleCloseModal} stockOptions={stockOptions} handleInputChange={handleInputChange} handleSubmit={handleSubmit} />
+                <PurchaseModal handleCloseModal={handleCloseModal} stockOptions={stockOptions} handleInputChange={handleInputChange} handleSubmit={handleSubmit} errorMessage={errorMessage} />
             )}
         </div>
 

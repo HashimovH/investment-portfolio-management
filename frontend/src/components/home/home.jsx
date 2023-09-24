@@ -15,6 +15,8 @@ export default function Home() {
     ]
     const [currentUser, setCurrentUser] = useState({});
     const [stocks, setStocks] = useState([]);
+    const [totalGain, setTotalGain] = useState(0);
+    const [totalValue, setTotalValue] = useState(0);
     const getCurrentUser = async () => {
         try {
             const token = localStorage.getItem('token');
@@ -55,8 +57,8 @@ export default function Home() {
             <Header first_name={currentUser.name} last_name={currentUser.surname} />
             <div className='row'>
                 <div className='col-md-8'>
-                    <Statistics currentBalance={currentUser.balance} />
-                    <Transactions stockOptions={stocks} />
+                    <Statistics currentBalance={currentUser.balance} totalProfitLoss={totalGain} totalPortfolioValue={totalValue} />
+                    <Transactions stockOptions={stocks} setTotalGain={setTotalGain} setTotalValue={setTotalValue} />
                 </div>
                 <div className='col-md-4'>
                     <Sidebar recentStocks={stocks} mostProfitableClients={clients} />

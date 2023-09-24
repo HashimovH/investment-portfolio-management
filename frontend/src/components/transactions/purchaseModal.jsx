@@ -1,6 +1,6 @@
 
 
-export default function PurchaseModal({ handleCloseModal, stockOptions, handleInputChange, handleSubmit }) {
+export default function PurchaseModal({ handleCloseModal, stockOptions, handleInputChange, handleSubmit, errorMessage = null }) {
     return (
         <div className="modal" tabIndex="-1" role="dialog" style={{ display: 'block', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
             <div className="modal-dialog" role="document">
@@ -12,11 +12,16 @@ export default function PurchaseModal({ handleCloseModal, stockOptions, handleIn
                         </button>
                     </div>
                     <div className="modal-body">
+                        {errorMessage && (
+                            <div className="alert alert-danger" role="alert">
+                                {errorMessage}
+                            </div>
+                        )}
                         <div className="purchase-form">
                             <form onSubmit={handleSubmit}>
                                 <div className="form-group mb-3">
                                     <select className="form-control input-bg-gray" id="stockSelect" name="stock_id" placeholder="Stocks" onChange={handleInputChange}>
-                                        <option value="" disabled selected>
+                                        <option>
                                             Choose Stock
                                         </option>
                                         {stockOptions.map((stock, index) => (

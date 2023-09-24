@@ -33,5 +33,5 @@ class Transactions(Base):
     stock_id = Column(Integer, ForeignKey("stocks.id"))
     volume = Column(Integer)
     price = Column(Float)
-    purchase_price = Column(Float, default=0)
+    purchase_price = Column(Float, nullable=True, default=0.0)
     created_at = Column(DateTime, default=datetime.datetime.now())

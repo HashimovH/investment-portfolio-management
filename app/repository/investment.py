@@ -32,5 +32,4 @@ class InvestmentRepository(Repository):
         new_transaction = Transactions(client_id=client_id, stock_id=stock_id, volume=volume, price=price, purchase_price=purchase_price)
         self._session.add(new_transaction)
         await self._session.commit()
-        # await self._session.refresh(new_transaction)
         return new_transaction
