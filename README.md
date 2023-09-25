@@ -67,4 +67,7 @@ Since I am back-end heavy Software Engineer, I did my best to build clean Front-
 # Screen Recording
 https://drive.google.com/file/d/1OueDtzRDkjE9Jae-fbm7OfhnVvZJBFAB/view?usp=sharing
 
+# Testing
+You can add data into database directly as shown in the video and use UI for testing.
+
 Overall Time Spent: ~23 Hours. (Saturday, Sunday, Monday)
