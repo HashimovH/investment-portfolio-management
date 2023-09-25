@@ -1,6 +1,7 @@
-import Login from './components/auth/login';
+import React from 'react';
+import Login from './components/auth/Login';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Home from './components/home/home';
+import Home from './components/home/Home';
 import { useState, useEffect } from 'react';
 
 

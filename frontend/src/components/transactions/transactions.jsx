@@ -1,13 +1,14 @@
+import React from "react";
 import { useEffect, useState } from "react";
-import PurchaseModal from "./purchaseModal";
+import PurchaseModal from "./PurchaseModal";
 import axios from "axios";
 import config from "../../config";
-import { Navigate } from "react-router-dom";
 
 export default function Transactions({ stockOptions = [], setTotalGain, setTotalValue, setBalance }) {
     const [showModal, setShowModal] = useState(false);
     const [formData, setFormData] = useState({ stock_id: '', volume: '' });
     const [errorMessage, setErrorMessage] = useState(null);
+    const [transactions, setTransactions] = useState([]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -54,12 +55,12 @@ export default function Transactions({ stockOptions = [], setTotalGain, setTotal
     const handleCloseModal = () => {
         setShowModal(false);
     };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         createTransaction();
     };
 
-    const [transactions, setTransactions] = useState([]);
     const getTransactions = async () => {
         try {
             const token = localStorage.getItem('token');

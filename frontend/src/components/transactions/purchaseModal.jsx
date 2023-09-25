@@ -1,4 +1,4 @@
-
+import React from "react";
 
 export default function PurchaseModal({ handleCloseModal, stockOptions, handleInputChange, handleSubmit, errorMessage = null }) {
     return (

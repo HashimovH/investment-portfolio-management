@@ -1,9 +1,11 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import config from "../../config";
 
-export default function Sidebar({ recentStocks, mostProfitableClients }) {
+export default function Sidebar({ recentStocks }) {
     const [clients, setClients] = useState([]);
+
     const getClients = async () => {
         try {
             const token = localStorage.getItem('token');
@@ -22,6 +24,7 @@ export default function Sidebar({ recentStocks, mostProfitableClients }) {
     useEffect(() => {
         getClients();
     }, []);
+
     return (
         <div className="sidebar">
             <div className="d-flex mb-3">

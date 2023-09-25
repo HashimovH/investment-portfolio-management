@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import config from "../../config";
@@ -7,6 +8,7 @@ const Login = ({ setIsAuthenticated }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+
     const handleLogin = async (e) => {
         e.preventDefault();
 
@@ -31,6 +33,7 @@ const Login = ({ setIsAuthenticated }) => {
             alert('Invalid credentials. Please try again.');
         }
     };
+
     return (
         <div className="container mt-5">
             <div className="row justify-content-center">

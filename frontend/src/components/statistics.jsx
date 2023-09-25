@@ -1,3 +1,4 @@
+import React from "react"
 export default function Statistics({ currentBalance = 0, totalProfitLoss = 0, totalPortfolioValue = 0 }) {
     return (
         <section className="general-information container">

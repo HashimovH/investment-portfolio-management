@@ -1,8 +1,9 @@
+import React from "react";
 import axios from "axios";
-import Header from "../header";
-import Sidebar from "../sidebar/sidebar";
-import Statistics from "../statistics";
-import Transactions from "../transactions/transactions";
+import Header from "../Header";
+import Sidebar from "../sidebar/Sidebar";
+import Statistics from "../Statistics";
+import Transactions from "../transactions/Transactions";
 import config from "../../config";
 import { useEffect, useState } from "react";
 
@@ -13,6 +14,7 @@ export default function Home() {
     const [totalGain, setTotalGain] = useState(0);
     const [totalValue, setTotalValue] = useState(0);
     const [balance, setBalance] = useState(0);
+
     const getCurrentUser = async () => {
         try {
             const token = localStorage.getItem('token');
@@ -29,6 +31,7 @@ export default function Home() {
             console.error('Error fetching current user:', error.response ? error.response.data : error.message);
         }
     };
+
     const getStocks = async () => {
         try {
             const token = localStorage.getItem('token');
@@ -52,9 +55,10 @@ export default function Home() {
         getCurrentUser();
         getStocks();
     }, []);
+
     return (
         <div>
-            <Header first_name={currentUser.name} last_name={currentUser.surname} />
+            <Header firstName={currentUser.name} lastName={currentUser.surname} />
             <div className='row'>
                 <div className='col-md-8'>
                     <Statistics currentBalance={balance} totalProfitLoss={totalGain} totalPortfolioValue={totalValue} />
