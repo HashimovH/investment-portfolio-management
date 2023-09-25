@@ -1,3 +1,5 @@
+import logging
+
 from fastapi import APIRouter, Depends, HTTPException, status
 
 from app.dependency.investment_service import get_investment_service
@@ -12,7 +14,6 @@ from app.schemas.transaction import (
 )
 from app.services.investment_service import InvestmentService
 from app.services.user_service import UserService
-import logging
 
 router = APIRouter(tags=["Investment"])
 logger = logging.getLogger(__name__)
@@ -30,6 +31,7 @@ async def get_available_stocks(service: InvestmentService = get_investment_servi
         logger.error(f"Error while getting stocks, {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
+
 @router.get("/transactions", response_model=TransactionOutWithTotal)
 async def get_user_transactions(
     service: InvestmentService = get_investment_service,
@@ -43,6 +45,7 @@ async def get_user_transactions(
     except Exception as e:
         logger.error(f"Error while getting user transactions, {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
 
 @router.post(
     "/transactions",

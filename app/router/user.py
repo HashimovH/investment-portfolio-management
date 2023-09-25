@@ -1,3 +1,5 @@
+import logging
+
 from fastapi import APIRouter, Depends, Header, HTTPException, status
 
 from app.dependency.investment_service import get_investment_service
@@ -7,7 +9,6 @@ from app.schemas.user import ProfitableUsers, UserCreate, UserLogin, UserOut
 from app.services.investment_service import InvestmentService
 from app.services.user_service import UserService
 from app.utils.auth import create_access_token, verify_password, verify_token
-import logging
 
 logger = logging.getLogger(__name__)
 

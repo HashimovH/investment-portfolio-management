@@ -1,8 +1,9 @@
+import logging
+
 from app.exceptions.insufficient_balance import InsufficientBalance
 from app.models.models import Stock
 from app.schemas.transaction import TransactionOut, TransactionOutWithTotal
 from app.schemas.user import ProfitableUsers
-import logging
 
 logger = logging.getLogger(__name__)
 
