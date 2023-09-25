@@ -4,6 +4,7 @@ from app.exceptions.insufficient_balance import InsufficientBalance
 from app.models.models import Stock
 from app.schemas.transaction import TransactionOut, TransactionOutWithTotal
 from app.schemas.user import ProfitableUsers
+from decimal import Decimal
 
 logger = logging.getLogger(__name__)
 
@@ -49,8 +50,8 @@ class InvestmentService:
         )
 
     async def create_new_transaction(
-        self, client_id: int, client_balance: float, stock_id: int, volume: int
-    ) -> tuple[bool, float]:
+        self, client_id: int, client_balance: Decimal, stock_id: int, volume: int
+    ) -> tuple[bool, Decimal]:
         stock = await self._repository.get_stock(stock_id)
 
         transaction_price = stock.price * volume
@@ -67,6 +68,8 @@ class InvestmentService:
         profits = await self._repository.get_most_profitable_users()
         result = []
         for profit in profits:
+            if(profit[2] <= 0):
+                continue
             result.append(
                 ProfitableUsers(name=profit[0], surname=profit[1], profit=profit[2])
             )

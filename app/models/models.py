@@ -1,6 +1,6 @@
 import datetime
 
-from sqlalchemy import Column, DateTime, Float, ForeignKey, Integer, String
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, Numeric
 
 from app.models.base import Base
 
@@ -14,7 +14,7 @@ class Client(Base):
     surname = Column(String)
     email = Column(String, unique=True, index=True)
     active = Column(Integer, default=1)
-    balance = Column(Float, default=0.0)
+    balance = Column(Numeric(9, 3), default=0.0)
 
 
 class Stock(Base):
@@ -22,8 +22,7 @@ class Stock(Base):
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     name = Column(String, unique=True, index=True)
-    price = Column(Float)
-    total_volume = Column(Integer, default=100)
+    price = Column(Numeric(9, 3))
     active = Column(Integer, default=1)
 
 
@@ -34,6 +33,6 @@ class Transactions(Base):
     client_id = Column(Integer, ForeignKey("clients.id"))
     stock_id = Column(Integer, ForeignKey("stocks.id"))
     volume = Column(Integer)
-    price = Column(Float)
-    purchase_price = Column(Float, nullable=True, default=0.0)
+    price = Column(Numeric(9, 3))
+    purchase_price = Column(Numeric(9, 3), nullable=True)
     created_at = Column(DateTime, default=datetime.datetime.now())

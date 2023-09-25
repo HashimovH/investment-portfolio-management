@@ -5,6 +5,8 @@ from sqlalchemy import func, select, update
 from app.models.models import Client, Stock, Transactions
 from app.repository.base import Repository
 from app.schemas.user import UserCreate
+from decimal import Decimal
+
 
 logger = logging.getLogger(__name__)
 
@@ -37,7 +39,7 @@ class InvestmentRepository(Repository):
         volume,
         transaction_price,
         purchase_price,
-    ) -> tuple[bool, float]:
+    ) -> tuple[bool, Decimal]:
         try:
             new_transaction = Transactions(
                 client_id=client_id,
