@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from app.models.models import Client, Stock, Transactions
-from sqlalchemy import func, select
+from sqlalchemy import func, select, update
 
 from app.schemas.user import UserCreate
 from app.repository.base import Repository
@@ -28,11 +28,21 @@ class InvestmentRepository(Repository):
         result = await self._session.execute(stmt)
         return result.all()
 
-    async def create_new_transaction(self, client_id, stock_id, volume, price, purchase_price) -> Transactions:
-        new_transaction = Transactions(client_id=client_id, stock_id=stock_id, volume=volume, price=price, purchase_price=purchase_price)
-        self._session.add(new_transaction)
+    async def create_new_transaction_and_decrease_balance(self, client_id, client_balance, stock_id, volume, transaction_price, purchase_price) -> tuple[bool, float]:
+        try:
+            new_transaction = Transactions(client_id=client_id, stock_id=stock_id, volume=volume, price=transaction_price, purchase_price=purchase_price)
+            self._session.add(new_transaction)
+            new_balance = client_balance - transaction_price
+            stmt = (
+                update(Client).where(Client.id == client_id).values(balance=new_balance)
+            )
+            await self._session.execute(stmt)
+        except Exception as e:
+            await self._session.rollback()
+            raise e
+
         await self._session.commit()
-        return new_transaction
+        return True, new_balance
 
     async def get_most_profitable_users(self) -> list[UserCreate]:
         stmt = (

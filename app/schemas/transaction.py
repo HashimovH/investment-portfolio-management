@@ -20,3 +20,7 @@ class TransactionOutWithTotal(BaseModel):
     total_gain: Optional[float] = 0
     total_value: Optional[float] = 0
     transactions: list[TransactionOut]
+
+class CreateTransactionResponse(BaseModel):
+    success: bool
+    balance: float

@@ -18,9 +18,11 @@ const Login = ({ setIsAuthenticated }) => {
 
             // Assuming the backend sends a token upon successful login
             const token = response.data.access_token;
+            const expirationTime = new Date().getTime() + 30 * 60 * 1000;
 
             // Store the token in local storage or a cookie for authentication
             localStorage.setItem('token', token);
+            localStorage.setItem('tokenExpiration', expirationTime);
 
             // Update the isAuthenticated state to true
             setIsAuthenticated(true);

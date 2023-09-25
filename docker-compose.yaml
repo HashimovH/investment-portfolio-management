@@ -3,10 +3,14 @@ version: '3.8'
 services:
   frontend:
     build:
-      context: .
-      dockerfile: frontend/Dockerfile
+      context: ./frontend/
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./frontend:/app
     ports:
       - "3000:3000"
+    environment:
+      - BACKEND_URL=http://localhost:8008
     depends_on:
       - web
   web:

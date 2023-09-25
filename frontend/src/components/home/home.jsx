@@ -12,6 +12,7 @@ export default function Home() {
     const [stocks, setStocks] = useState([]);
     const [totalGain, setTotalGain] = useState(0);
     const [totalValue, setTotalValue] = useState(0);
+    const [balance, setBalance] = useState(0);
     const getCurrentUser = async () => {
         try {
             const token = localStorage.getItem('token');
@@ -22,6 +23,7 @@ export default function Home() {
                 },
             });
             console.log('Current user:', response.data);
+            setBalance(response.data.balance)
             setCurrentUser(response.data);
         } catch (error) {
             console.error('Error fetching current user:', error.response ? error.response.data : error.message);
@@ -52,8 +54,8 @@ export default function Home() {
             <Header first_name={currentUser.name} last_name={currentUser.surname} />
             <div className='row'>
                 <div className='col-md-8'>
-                    <Statistics currentBalance={currentUser.balance} totalProfitLoss={totalGain} totalPortfolioValue={totalValue} />
-                    <Transactions stockOptions={stocks} setTotalGain={setTotalGain} setTotalValue={setTotalValue} />
+                    <Statistics currentBalance={balance} totalProfitLoss={totalGain} totalPortfolioValue={totalValue} />
+                    <Transactions stockOptions={stocks} setTotalGain={setTotalGain} setTotalValue={setTotalValue} setBalance={setBalance} />
                 </div>
                 <div className='col-md-4'>
                     <Sidebar recentStocks={stocks} />

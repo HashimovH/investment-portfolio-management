@@ -39,24 +39,18 @@ class InvestmentService:
         return TransactionOutWithTotal(total_gain=round(total_gain, 3), transactions=result, total_value=total_value)
 
 
-    async def create_new_transaction(self, client_id: int, client_balance: float, stock_id: int, volume: int) -> Transactions:
+    async def create_new_transaction(self, client_id: int, client_balance: float, stock_id: int, volume: int) -> tuple[bool, float]:
         stock = await self._repository.get_stock(stock_id)
         
         transaction_price = stock.price * volume
         if client_balance < transaction_price:
             raise InsufficientBalance("Insufficient balance")
+        _, balance = await self._repository.create_new_transaction_and_decrease_balance(client_id,client_balance, stock_id, volume, transaction_price, stock.price)
         
-        transaction = await self._repository.create_new_transaction(client_id, stock_id, volume, transaction_price, stock.price)
-        
-        client_balance = client_balance
-        new_balance = client_balance - transaction_price
-        await self._user_repository.decrease_balance(client_id, new_balance)
-
-        return transaction
+        return True, balance
 
     async def get_most_profitable_users(self) -> list[ProfitableUsers]:
         profits = await self._repository.get_most_profitable_users()
-        print(profits)
         result = []
         for profit in profits:
             result.append(ProfitableUsers(name=profit[0], surname=profit[1], profit=profit[2]))

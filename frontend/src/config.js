@@ -1,4 +1,4 @@
-const apiUrl = "http://localhost:8008";
+const apiUrl = process.env.BACKEND_URL || 'http://localhost:8008';
 
 const config = {
     API_URL: apiUrl,

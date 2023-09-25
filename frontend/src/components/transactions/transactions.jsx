@@ -3,7 +3,7 @@ import PurchaseModal from "./purchaseModal";
 import axios from "axios";
 import config from "../../config";
 
-export default function Transactions({ stockOptions = [], setTotalGain, setTotalValue }) {
+export default function Transactions({ stockOptions = [], setTotalGain, setTotalValue, setBalance }) {
     const [showModal, setShowModal] = useState(false);
     const [formData, setFormData] = useState({ stock_id: '', volume: '' });
     const [errorMessage, setErrorMessage] = useState(null);
@@ -29,6 +29,8 @@ export default function Transactions({ stockOptions = [], setTotalGain, setTotal
                 console.log('Transaction created:', response.data);
                 setShowModal(false);
                 getTransactions();
+                setErrorMessage(null);
+                setBalance(response.data.balance);
                 return response.data;
             } else {
                 console.error('Error creating transaction:', response.data);

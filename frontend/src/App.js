@@ -5,8 +5,15 @@ import { useState, useEffect } from 'react';
 
 
 function App() {
+  const isTokenExpired = () => {
+    const expiration = localStorage.getItem('tokenExpiration');
+    if (!expiration) return true;
+
+    const currentTime = new Date().getTime();
+    return currentTime > parseInt(expiration, 10);
+  };
   const [isAuthenticated, setIsAuthenticated] = useState(
-    () => localStorage.getItem('token') !== null
+    isTokenExpired() ? false : true
   );
 
   useEffect(() => {
