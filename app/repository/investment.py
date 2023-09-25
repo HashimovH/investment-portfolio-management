@@ -7,7 +7,7 @@ from app.schemas.user import UserCreate
 
 class InvestmentRepository(Repository):
     async def get_all_active_stocks(self) -> list[Stock]:
-        stmt = select(Stock).where(Stock.active == 1)
+        stmt = select(Stock).where(Stock.active == 1).order_by(Stock.id.desc()).limit(5)
         result = await self._session.execute(stmt)
         return result.scalars().all()
 

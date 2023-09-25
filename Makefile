@@ -20,7 +20,8 @@ lint: ## Run code linters
     flake8 core tests    mypy core tests
     yamllint --strict .
 
-test: ## Run unit tests with coverage    python -m pytest tests/unit --lf --durations=5
+test: ## Run unit tests with coverage    
+    python -m pytest tests/unit --lf --durations=5
 
 test-integration: ## Run integration tests
     python -m pytest tests/integration

@@ -42,6 +42,9 @@ export default function Home() {
             setStocks(response.data);
         } catch (error) {
             console.error('Error fetching stocks:', error.response ? error.response.data : error.message);
+            if (error.response && error.response.status === 401) {
+                window.location.href = '/login';
+            }
         }
     }
 

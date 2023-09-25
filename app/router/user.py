@@ -11,16 +11,21 @@ from app.utils.auth import create_access_token, verify_password, verify_token
 
 def get_current_user(authorization: str = Header(...)):
     token = authorization.split()[1]
-    print(token)
     if token is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Could not validate credentials",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    token = verify_token(token)
-    return token.get("sub")
-
+    try:
+        token = verify_token(token)
+        return token.get("sub")
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Could not validate credentials",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
 
 router = APIRouter(tags=["User"])
 
@@ -64,7 +69,7 @@ async def get_current_user_route(
 @router.get("/users/profitable", response_model=list[ProfitableUsers])
 async def get_most_profitable_users(
     service: InvestmentService = get_investment_service,
-    # current_user: str = Depends(get_current_user)
+    _ = Depends(get_current_user)
 ):
     users = await service.get_most_profitable_users()
     return users

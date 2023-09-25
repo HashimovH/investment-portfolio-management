@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import PurchaseModal from "./purchaseModal";
 import axios from "axios";
 import config from "../../config";
+import { Navigate } from "react-router-dom";
 
 export default function Transactions({ stockOptions = [], setTotalGain, setTotalValue, setBalance }) {
     const [showModal, setShowModal] = useState(false);
@@ -40,6 +41,9 @@ export default function Transactions({ stockOptions = [], setTotalGain, setTotal
         } catch (error) {
             console.error('Error creating transaction:', error.response ? error.response.data : error.message);
             setErrorMessage(`Failed to create transaction. ${error.response ? error.response.data.detail : error.message.detail}`);
+            if (error.response && error.response.status === 401) {
+                window.location.href = '/login';
+            }
         }
     };
 
@@ -71,6 +75,9 @@ export default function Transactions({ stockOptions = [], setTotalGain, setTotal
             setTotalValue(response.data.total_value);
         } catch (error) {
             console.error('Error fetching transactions:', error.response ? error.response.data : error.message);
+            if (error.response && error.response.status === 401) {
+                window.location.href = '/login';
+            }
         }
     }
 

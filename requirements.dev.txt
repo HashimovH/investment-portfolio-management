@@ -1,3 +1,5 @@
+aiosqlite==0.19.0
+    # via -r requirements.dev.in
 alembic==1.12.0
     # via -r requirements.in
 annotated-types==0.5.0
@@ -21,10 +23,15 @@ colorama==0.4.6
     # via
     #   build
     #   click
+    #   pytest
+coverage[toml]==7.3.1
+    # via pytest-cov
 ecdsa==0.18.0
     # via python-jose
 exceptiongroup==1.1.3
-    # via anyio
+    # via
+    #   anyio
+    #   pytest
 fastapi==0.103.1
     # via -r requirements.in
 flake8==6.1.0
@@ -37,6 +44,8 @@ idna==3.4
     # via anyio
 importlib-metadata==6.8.0
     # via build
+iniconfig==2.0.0
+    # via pytest
 isort==5.12.0
     # via -r requirements.dev.in
 mako==1.2.4
@@ -57,6 +66,7 @@ packaging==23.1
     # via
     #   black
     #   build
+    #   pytest
 passlib==1.7.4
     # via -r requirements.in
 pathspec==0.11.2
@@ -67,6 +77,8 @@ pip-tools==7.3.0
     # via -r requirements.dev.in
 platformdirs==3.10.0
     # via black
+pluggy==1.3.0
+    # via pytest
 psycopg2-binary==2.9.7
     # via -r requirements.in
 pyasn1==0.5.0
@@ -83,6 +95,15 @@ pyflakes==3.1.0
     # via flake8
 pyproject-hooks==1.0.0
     # via build
+pytest==7.4.2
+    # via
+    #   -r requirements.dev.in
+    #   pytest-asyncio
+    #   pytest-cov
+pytest-asyncio==0.21.1
+    # via -r requirements.dev.in
+pytest-cov==4.1.0
+    # via -r requirements.dev.in
 python-jose==3.3.0
     # via -r requirements.in
 pyyaml==6.0.1
@@ -103,9 +124,11 @@ tomli==2.0.1
     # via
     #   black
     #   build
+    #   coverage
     #   mypy
     #   pip-tools
     #   pyproject-hooks
+    #   pytest
 typing-extensions==4.8.0
     # via
     #   alembic

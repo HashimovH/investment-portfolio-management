@@ -2,6 +2,6 @@
 2. Record Video
 3. Atomic processes +
 4. Write tests
-5. Login token expiration time
+5. Login token expiration time +
 6. Add pipelines
 7. Test properly

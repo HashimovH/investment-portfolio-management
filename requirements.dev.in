@@ -6,3 +6,8 @@ isort
 flake8
 mypy
 yamllint
+
+aiosqlite
+pytest
+pytest-asyncio
+pytest-cov
