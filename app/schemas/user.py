@@ -1,5 +1,7 @@
 from typing import Optional
+
 from pydantic import BaseModel, validator
+
 
 class UserCreate(BaseModel):
     username: str
@@ -7,11 +9,12 @@ class UserCreate(BaseModel):
     name: str
     surname: str
 
+
 class UserOut(UserCreate):
     id: int
     balance: Optional[float] = 0
 
-    @validator('balance', pre=True, always=True)
+    @validator("balance", pre=True, always=True)
     def round_balance(cls, value):
         if value is not None:
             return round(value, 3)
@@ -19,10 +22,12 @@ class UserOut(UserCreate):
 
     class Config:
         orm_mode = True
-    
+
+
 class UserLogin(BaseModel):
     username: str
     password: str
+
 
 class ProfitableUsers(BaseModel):
     name: str

@@ -1,10 +1,10 @@
-from sqlalchemy.orm import Session
-from app.models.models import Client
 from sqlalchemy import select, update
 
-from app.schemas.user import UserCreate
+from app.models.models import Client
 from app.repository.base import Repository
+from app.schemas.user import UserCreate
 from app.utils.auth import hash_password
+
 
 class UserRepository(Repository):
     async def create(self, user: UserCreate) -> Client:
@@ -16,15 +16,11 @@ class UserRepository(Repository):
         return db_user
 
     async def get_user_by_username(self, username: str) -> Client:
-        stmt = (
-            select(Client).where(Client.username == username)
-        )
+        stmt = select(Client).where(Client.username == username)
         result = await self._session.execute(stmt)
         return result.scalars().first()
 
     async def decrease_balance(self, client_id, new_balance):
-        stmt = (
-            update(Client).where(Client.id == client_id).values(balance=new_balance)
-        )
+        stmt = update(Client).where(Client.id == client_id).values(balance=new_balance)
         await self._session.execute(stmt)
         await self._session.commit()

@@ -1,6 +1,8 @@
-from app.models.base import Base
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime
 import datetime
+
+from sqlalchemy import Column, DateTime, Float, ForeignKey, Integer, String
+
+from app.models.base import Base
 
 
 class Client(Base):

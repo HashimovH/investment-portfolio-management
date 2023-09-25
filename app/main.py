@@ -1,10 +1,8 @@
-import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app import settings
-from app import meta
-from app.router import router as routers
 
+from app import meta, settings
+from app.router import router as routers
 
 app = FastAPI(
     title="Investment Portfolio API",
