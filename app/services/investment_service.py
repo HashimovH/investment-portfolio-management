@@ -66,6 +66,7 @@ class InvestmentService:
 
     async def get_most_profitable_users(self) -> list[ProfitableUsers]:
         profits = await self._repository.get_most_profitable_users()
+        print(profits)
         result = []
         for profit in profits:
             if(profit[2] <= 0):

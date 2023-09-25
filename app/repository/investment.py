@@ -67,11 +67,12 @@ class InvestmentRepository(Repository):
             select(
                 Client.name,
                 Client.surname,
-                func.sum(Transactions.price - Transactions.purchase_price),
+                func.sum(Stock.price * Transactions.volume - Transactions.price),
             )
             .join(Transactions, Client.id == Transactions.client_id)
+            .join(Stock, Transactions.stock_id == Stock.id)
             .group_by(Client.name, Client.surname, Client.id)
-            .order_by(func.sum(Transactions.price - Transactions.purchase_price).desc())
+            .order_by(func.sum(Stock.price * Transactions.volume - Transactions.price).desc())
             .limit(5)
         )
         result = await self._session.execute(stmt)
