@@ -9,4 +9,4 @@ __all__: List[str] = [
     if isfile(f) and not f.endswith("__init__.py")
 ]
 
-from . import * # noqa
+from . import *  # noqa

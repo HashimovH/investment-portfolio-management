@@ -2,8 +2,6 @@ from sqlalchemy import select, update
 
 from app.models.models import Client
 from app.repository.base import Repository
-from app.schemas.user import UserCreate
-from app.utils.auth import hash_password
 
 
 class UserRepository(Repository):

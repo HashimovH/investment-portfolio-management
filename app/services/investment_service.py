@@ -1,9 +1,6 @@
 from app.exceptions.insufficient_balance import InsufficientBalance
 from app.models.models import Stock
-from app.schemas.transaction import (
-    TransactionOut,
-    TransactionOutWithTotal,
-)
+from app.schemas.transaction import TransactionOut, TransactionOutWithTotal
 from app.schemas.user import ProfitableUsers
 
 
@@ -21,7 +18,11 @@ class InvestmentService:
         total_value = 0
         result = []
         for transaction in transactions:
-            gain = round(transaction[0].volume * (transaction[2] - transaction[0].purchase_price), 3)
+            gain = round(
+                transaction[0].volume
+                * (transaction[2] - transaction[0].purchase_price),
+                3,
+            )
             total_value += round(transaction[2] * transaction[0].volume, 3)
             total_gain += gain
             result.append(

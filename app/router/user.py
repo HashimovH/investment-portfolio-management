@@ -27,6 +27,7 @@ def get_current_user(authorization: str = Header(...)):
             headers={"WWW-Authenticate": "Bearer"},
         )
 
+
 router = APIRouter(tags=["User"])
 
 
@@ -68,8 +69,7 @@ async def get_current_user_route(
 
 @router.get("/users/profitable", response_model=list[ProfitableUsers])
 async def get_most_profitable_users(
-    service: InvestmentService = get_investment_service,
-    _ = Depends(get_current_user)
+    service: InvestmentService = get_investment_service, _=Depends(get_current_user)
 ):
     users = await service.get_most_profitable_users()
     return users

@@ -1,10 +1,12 @@
 import asyncio
 from typing import AsyncIterator
+
 import pytest
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncEngine
-from app.database.session import make_async_session, ASYNC_ENGINE
+from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, create_async_engine
+
+from app.database.session import ASYNC_ENGINE, make_async_session
 from app.models.base import Base
+
 
 @pytest.fixture
 async def create_db():
@@ -31,5 +33,3 @@ async def clean_db():
         await conn.run_sync(Base.metadata.drop_all)
     async with ASYNC_ENGINE.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
-    
-    
