@@ -3,7 +3,9 @@ from sqlalchemy import func, select, update
 from app.models.models import Client, Stock, Transactions
 from app.repository.base import Repository
 from app.schemas.user import UserCreate
+import logging
 
+logger = logging.getLogger(__name__)
 
 class InvestmentRepository(Repository):
     async def get_all_active_stocks(self) -> list[Stock]:
@@ -49,6 +51,7 @@ class InvestmentRepository(Repository):
             )
             await self._session.execute(stmt)
         except Exception as e:
+            logger.error(f"Error while creating new transaction, {e}")
             await self._session.rollback()
             raise e
 

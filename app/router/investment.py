@@ -12,18 +12,23 @@ from app.schemas.transaction import (
 )
 from app.services.investment_service import InvestmentService
 from app.services.user_service import UserService
+import logging
 
 router = APIRouter(tags=["Investment"])
+logger = logging.getLogger(__name__)
 
 
 @router.get("/stocks", response_model=list[Stock])
 async def get_available_stocks(service: InvestmentService = get_investment_service):
-    stocks = await service.get_all_stocks()
-    result = []
-    for stock in stocks:
-        result.append(Stock(id=stock.id, name=stock.name, price=stock.price))
-    return result
-
+    try:
+        stocks = await service.get_all_stocks()
+        result = []
+        for stock in stocks:
+            result.append(Stock(id=stock.id, name=stock.name, price=stock.price))
+        return result
+    except Exception as e:
+        logger.error(f"Error while getting stocks, {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 @router.get("/transactions", response_model=TransactionOutWithTotal)
 async def get_user_transactions(
@@ -31,10 +36,13 @@ async def get_user_transactions(
     user_service: UserService = get_user_service,
     current_user: str = Depends(get_current_user),
 ):
-    user = await user_service.get_user_by_username(current_user)
-    transactions = await service.get_user_transactions(user.id)
-    return transactions
-
+    try:
+        user = await user_service.get_user_by_username(current_user)
+        transactions = await service.get_user_transactions(user.id)
+        return transactions
+    except Exception as e:
+        logger.error(f"Error while getting user transactions, {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 @router.post(
     "/transactions",
@@ -57,4 +65,5 @@ async def create_new_transaction(
     except InsufficientBalance as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
+        logger.error(f"Error while creating new transaction, {e}")
         raise HTTPException(status_code=500, detail=str(e))

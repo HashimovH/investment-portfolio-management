@@ -2,6 +2,9 @@ from app.exceptions.insufficient_balance import InsufficientBalance
 from app.models.models import Stock
 from app.schemas.transaction import TransactionOut, TransactionOutWithTotal
 from app.schemas.user import ProfitableUsers
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class InvestmentService:
@@ -51,6 +54,7 @@ class InvestmentService:
 
         transaction_price = stock.price * volume
         if client_balance < transaction_price:
+            logger.warning(f"Insufficient balance for client {client_id}")
             raise InsufficientBalance("Insufficient balance")
         _, balance = await self._repository.create_new_transaction_and_decrease_balance(
             client_id, client_balance, stock_id, volume, transaction_price, stock.price

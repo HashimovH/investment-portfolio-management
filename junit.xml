@@ -1,1 +1,129 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="14" time="0.870" timestamp="2023-09-25T20:36:19.083370" hostname="Hashimov"><testcase classname="tests.unit.repository.test_invesment_repository" name="test_get_all_active_stocks" time="0.061" /><testcase classname="tests.unit.repository.test_invesment_repository" name="test_get_one_stock" time="0.035" /><testcase classname="tests.unit.repository.test_invesment_repository" name="test_get_user_transactions" time="0.045" /><testcase classname="tests.unit.repository.test_invesment_repository" name="test_create_new_transaction_and_decrease_balance" time="0.042" /><testcase classname="tests.unit.repository.test_invesment_repository" name="test_get_most_profitable_clients" time="0.039" /><testcase classname="tests.unit.repository.test_user_repository" name="test_get_user_by_username" time="0.036" /><testcase classname="tests.unit.services.test_investment_service" name="test_get_all_active_stocks" time="0.047" /><testcase classname="tests.unit.services.test_investment_service" name="test_get_user_transaction" time="0.005" /><testcase classname="tests.unit.services.test_investment_service" name="test_create_new_transaction" time="0.005" /><testcase classname="tests.unit.services.test_investment_service" name="test_get_most_profitable_user" time="0.006" /><testcase classname="tests.unit.utils.test_token_hash" name="test_create_access_token" time="0.002" /><testcase classname="tests.unit.utils.test_token_hash" name="test_verify_token" time="0.001" /><testcase classname="tests.unit.utils.test_token_hash" name="test_verify_token_invalid_token" time="0.001" /><testcase classname="tests.unit.utils.test_token_hash" name="test_verify_token_expired_token" time="0.002" /></testsuite></testsuites>
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="3" failures="0" skipped="0" tests="3" time="1.760" timestamp="2023-09-25T20:57:59.215407" hostname="Hashimov"><testcase classname="" name="tests.unit.repository.test_invesment_repository" time="0.000"><error message="collection failure">venv\lib\site-packages\_pytest\runner.py:341: in from_call
+    result: Optional[TResult] = func()
+venv\lib\site-packages\_pytest\runner.py:372: in &lt;lambda&gt;
+    call = CallInfo.from_call(lambda: list(collector.collect()), "collect")
+venv\lib\site-packages\_pytest\python.py:531: in collect
+    self._inject_setup_module_fixture()
+venv\lib\site-packages\_pytest\python.py:545: in _inject_setup_module_fixture
+    self.obj, ("setUpModule", "setup_module")
+venv\lib\site-packages\_pytest\python.py:310: in obj
+    self._obj = obj = self._getobj()
+venv\lib\site-packages\_pytest\python.py:528: in _getobj
+    return self._importtestmodule()
+venv\lib\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+venv\lib\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+..\..\AppData\Local\Programs\Python\Python39\lib\importlib\__init__.py:127: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+&lt;frozen importlib._bootstrap&gt;:1030: in _gcd_import
+    ???
+&lt;frozen importlib._bootstrap&gt;:1007: in _find_and_load
+    ???
+&lt;frozen importlib._bootstrap&gt;:986: in _find_and_load_unlocked
+    ???
+&lt;frozen importlib._bootstrap&gt;:680: in _load_unlocked
+    ???
+venv\lib\site-packages\_pytest\assertion\rewrite.py:178: in exec_module
+    exec(co, module.__dict__)
+tests\unit\repository\test_invesment_repository.py:8: in &lt;module&gt;
+    from app.repository.investment import InvestmentRepository
+app\repository\investment.py:5: in &lt;module&gt;
+    from app.schemas.user import UserCreate
+app\schemas\user.py:14: in &lt;module&gt;
+    class UserOut(UserCreate):
+app\schemas\user.py:16: in UserOut
+    balance: Optional[Decimal(3)] = 0.0
+..\..\AppData\Local\Programs\Python\Python39\lib\typing.py:277: in inner
+    return func(*args, **kwds)
+..\..\AppData\Local\Programs\Python\Python39\lib\typing.py:354: in __getitem__
+    return self._getitem(self, parameters)
+..\..\AppData\Local\Programs\Python\Python39\lib\typing.py:478: in Optional
+    arg = _type_check(parameters, f"{self} requires a single type.")
+..\..\AppData\Local\Programs\Python\Python39\lib\typing.py:166: in _type_check
+    raise TypeError(f"{msg} Got {arg!r:.100}.")
+E   TypeError: typing.Optional requires a single type. Got Decimal('3').</error></testcase><testcase classname="" name="tests.unit.repository.test_user_repository" time="0.000"><error message="collection failure">venv\lib\site-packages\_pytest\runner.py:341: in from_call
+    result: Optional[TResult] = func()
+venv\lib\site-packages\_pytest\runner.py:372: in &lt;lambda&gt;
+    call = CallInfo.from_call(lambda: list(collector.collect()), "collect")
+venv\lib\site-packages\_pytest\python.py:531: in collect
+    self._inject_setup_module_fixture()
+venv\lib\site-packages\_pytest\python.py:545: in _inject_setup_module_fixture
+    self.obj, ("setUpModule", "setup_module")
+venv\lib\site-packages\_pytest\python.py:310: in obj
+    self._obj = obj = self._getobj()
+venv\lib\site-packages\_pytest\python.py:528: in _getobj
+    return self._importtestmodule()
+venv\lib\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+venv\lib\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+..\..\AppData\Local\Programs\Python\Python39\lib\importlib\__init__.py:127: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+&lt;frozen importlib._bootstrap&gt;:1030: in _gcd_import
+    ???
+&lt;frozen importlib._bootstrap&gt;:1007: in _find_and_load
+    ???
+&lt;frozen importlib._bootstrap&gt;:986: in _find_and_load_unlocked
+    ???
+&lt;frozen importlib._bootstrap&gt;:680: in _load_unlocked
+    ???
+venv\lib\site-packages\_pytest\assertion\rewrite.py:178: in exec_module
+    exec(co, module.__dict__)
+tests\unit\repository\test_user_repository.py:7: in &lt;module&gt;
+    from app.schemas.user import UserCreate
+app\schemas\user.py:14: in &lt;module&gt;
+    class UserOut(UserCreate):
+app\schemas\user.py:16: in UserOut
+    balance: Optional[Decimal(3)] = 0.0
+..\..\AppData\Local\Programs\Python\Python39\lib\typing.py:277: in inner
+    return func(*args, **kwds)
+..\..\AppData\Local\Programs\Python\Python39\lib\typing.py:354: in __getitem__
+    return self._getitem(self, parameters)
+..\..\AppData\Local\Programs\Python\Python39\lib\typing.py:478: in Optional
+    arg = _type_check(parameters, f"{self} requires a single type.")
+..\..\AppData\Local\Programs\Python\Python39\lib\typing.py:166: in _type_check
+    raise TypeError(f"{msg} Got {arg!r:.100}.")
+E   TypeError: typing.Optional requires a single type. Got Decimal('3').</error></testcase><testcase classname="" name="tests.unit.services.test_investment_service" time="0.000"><error message="collection failure">venv\lib\site-packages\_pytest\runner.py:341: in from_call
+    result: Optional[TResult] = func()
+venv\lib\site-packages\_pytest\runner.py:372: in &lt;lambda&gt;
+    call = CallInfo.from_call(lambda: list(collector.collect()), "collect")
+venv\lib\site-packages\_pytest\python.py:531: in collect
+    self._inject_setup_module_fixture()
+venv\lib\site-packages\_pytest\python.py:545: in _inject_setup_module_fixture
+    self.obj, ("setUpModule", "setup_module")
+venv\lib\site-packages\_pytest\python.py:310: in obj
+    self._obj = obj = self._getobj()
+venv\lib\site-packages\_pytest\python.py:528: in _getobj
+    return self._importtestmodule()
+venv\lib\site-packages\_pytest\python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+venv\lib\site-packages\_pytest\pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+..\..\AppData\Local\Programs\Python\Python39\lib\importlib\__init__.py:127: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+&lt;frozen importlib._bootstrap&gt;:1030: in _gcd_import
+    ???
+&lt;frozen importlib._bootstrap&gt;:1007: in _find_and_load
+    ???
+&lt;frozen importlib._bootstrap&gt;:986: in _find_and_load_unlocked
+    ???
+&lt;frozen importlib._bootstrap&gt;:680: in _load_unlocked
+    ???
+venv\lib\site-packages\_pytest\assertion\rewrite.py:178: in exec_module
+    exec(co, module.__dict__)
+tests\unit\services\test_investment_service.py:8: in &lt;module&gt;
+    from app.schemas.transaction import TransactionOut, TransactionOutWithTotal
+app\schemas\transaction.py:12: in &lt;module&gt;
+    class TransactionOut(BaseModel):
+app\schemas\transaction.py:16: in TransactionOut
+    price: Optional[Decimal(3)] = 0.0
+..\..\AppData\Local\Programs\Python\Python39\lib\typing.py:277: in inner
+    return func(*args, **kwds)
+..\..\AppData\Local\Programs\Python\Python39\lib\typing.py:354: in __getitem__
+    return self._getitem(self, parameters)
+..\..\AppData\Local\Programs\Python\Python39\lib\typing.py:478: in Optional
+    arg = _type_check(parameters, f"{self} requires a single type.")
+..\..\AppData\Local\Programs\Python\Python39\lib\typing.py:166: in _type_check
+    raise TypeError(f"{msg} Got {arg!r:.100}.")
+E   TypeError: typing.Optional requires a single type. Got Decimal('3').</error></testcase></testsuite></testsuites>

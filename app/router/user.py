@@ -7,6 +7,9 @@ from app.schemas.user import ProfitableUsers, UserCreate, UserLogin, UserOut
 from app.services.investment_service import InvestmentService
 from app.services.user_service import UserService
 from app.utils.auth import create_access_token, verify_password, verify_token
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def get_current_user(authorization: str = Header(...)):
@@ -71,5 +74,9 @@ async def get_current_user_route(
 async def get_most_profitable_users(
     service: InvestmentService = get_investment_service, _=Depends(get_current_user)
 ):
-    users = await service.get_most_profitable_users()
-    return users
+    try:
+        users = await service.get_most_profitable_users()
+        return users
+    except Exception as e:
+        logger.error(f"Error while getting most profitable users, {e}")
+        raise HTTPException(status_code=500, detail=str(e))
