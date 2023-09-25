@@ -61,6 +61,8 @@ Since I am back-end heavy Software Engineer, I did my best to build clean Front-
 
 `Axios` was my tool to make API requests to fetch or post data.
 
+### More plans - if having more time
+- Using Interceptor to automatically add token into headers in each request
 
 # Screen Recording
 https://drive.google.com/file/d/1OueDtzRDkjE9Jae-fbm7OfhnVvZJBFAB/view?usp=sharing
